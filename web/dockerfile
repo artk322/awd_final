@@ -1,0 +1,12 @@
+FROM node:14.8.0-alpine3.12 as env
+WORKDIR /opt/zher_web
+COPY package*.json ./
+RUN npm i
+COPY . .
+
+FROM env as dev
+CMD ["npm", "run", "serve"]
+
+FROM env as prod
+RUN npm run build
+
